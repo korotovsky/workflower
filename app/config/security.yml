@@ -1,0 +1,27 @@
+security:
+    providers:
+        default:
+          id: app.security.core.user.oauth_aware.user_provider
+
+    firewalls:
+        dev:
+            pattern: ^/(_(profiler|wdt|error)|css|images|js)/
+            security: false
+
+        default:
+            anonymous: ~
+            oauth:
+                resource_owners:
+                    dropbox:       /login/check-dropbox
+                    google:        /login/check-google
+                    yandex:        /login/check-yandex
+
+                login_path:        /
+                failure_path:      /
+                use_forward:       false
+
+                oauth_user_provider:
+                    service: app.security.core.user.oauth_aware.user_provider
+
+    access_control:
+        - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }

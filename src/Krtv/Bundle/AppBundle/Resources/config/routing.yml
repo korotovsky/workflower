@@ -1,0 +1,19 @@
+app_index:
+    path:     /
+    defaults: { _controller: AppBundle:Index:index }
+
+app_tracker_create:
+    path:     /tracker/create
+    defaults: { _controller: AppBundle:Tracker/Tracker:create }
+
+app_tracker_account_create:
+    path:     /tracker/account/create
+    defaults: { _controller: AppBundle:Tracker/TrackerAccount:create }
+
+app_transfer_create:
+    path:     /transfer/create
+    defaults: { _controller: AppBundle:Transfer/Transfer:create }
+
+app_transfer_sync:
+    path:     /transfer/{transfer}/sync
+    defaults: { _controller: AppBundle:Transfer/Transfer:sync }

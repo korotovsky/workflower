@@ -1,0 +1,26 @@
+# This file is a "template" of what your parameters.yml file should look like
+parameters:
+    database_driver:   pdo_mysql
+    database_host:     127.0.0.1
+    database_port:     ~
+    database_name:     symfony
+    database_user:     root
+    database_password: ~
+
+    mailer_transport:  smtp
+    mailer_host:       127.0.0.1
+    mailer_user:       ~
+    mailer_password:   ~
+
+    locale:            en
+
+    secret:            ThisTokenIsNotSoSecretChangeIt
+
+    provider.google.client_id:      ~
+    provider.google.client_secret:  ~
+
+    provider.dropbox.client_id:     ~
+    provider.dropbox.client_secret: ~
+
+    provider.yandex.client_id:      ~
+    provider.yandex.client_secret:  ~

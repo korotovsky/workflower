@@ -1,0 +1,15 @@
+app:
+    resource: "@AppBundle/Resources/config/routing.yml"
+
+hwi_oauth_redirect:
+    resource: "@HWIOAuthBundle/Resources/config/routing/redirect.xml"
+    prefix:   /login
+
+hwi_oauth_dropbox_login:
+    pattern:  /login/check-dropbox
+
+hwi_oauth_google_login:
+    pattern:  /login/check-google
+
+hwi_oauth_yandex_login:
+    pattern:  /login/check-yandex

@@ -1,0 +1,35 @@
+{% extends 'AppBundle:_layouts:layout.html.twig' %}
+
+{% block content %}
+    <a href="{{ hwi_oauth_login_url('dropbox') }}">Add Dropbox</a>
+    <a href="{{ hwi_oauth_login_url('google') }}">Add Google</a>
+    <a href="{{ hwi_oauth_login_url('yandex') }}">Add Yandex</a>
+    <a href="{{ path('app_tracker_create') }}">Add tracker</a>
+    <a href="{{ path('app_tracker_account_create') }}">Add tracker account</a>
+    <a href="{{ path('app_transfer_create') }}">Add Transfer</a>
+
+    <p>Connected providers:</p>
+    <ul>
+        {% for provider in providers %}
+            <li>
+                <span title="{{ provider.uid }}">
+                    <img align="center" width="20" height="20" src="{{ asset('bundles/app/images/' ~ provider.bridge ~ '.png') }}"> {{ provider.name }}
+                </span>
+            </li>
+        {% endfor %}
+    </ul>
+
+    <p>Created transfers:</p>
+    <ul>
+        {% for transfer in transfers %}
+            <li>
+                {% for provider in transfer.providers %}
+                    <span title="{{ provider.uid }}">
+                        <img align="center" width="20" height="20" src="{{ asset('bundles/app/images/' ~ provider.bridge ~ '.png') }}"> {{ provider.name }}{% if not loop.last %},{% endif %}
+                    </span>
+                {% endfor %}
+                <span>=> {{ transfer.tracker.name }} as {{ transfer.tracker.account.name }}</span>
+            </li>
+        {% endfor %}
+    </ul>
+{% endblock %}

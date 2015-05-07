@@ -1,0 +1,63 @@
+services:
+    app.debounce:
+        class: Krtv\Bundle\AppBundle\Debounce\Debounce
+        arguments:
+            - @doctrine.orm.entity_manager
+
+    app.transfer_manager:
+        class: Krtv\Bundle\AppBundle\Manager\TransferManager
+        arguments:
+            - @app.provider.bridge_registry
+            - @doctrine.orm.entity_manager
+
+    app.provider.bridge_registry:
+        class: Krtv\Bundle\AppBundle\Bridge\Provider\BridgeRegistry
+        calls:
+            - [addBridge, [ @app.bridge.google      ]]
+            - [addBridge, [ @app.bridge.dropbox     ]]
+            - [addBridge, [ @app.bridge.yandex      ]]
+            - [addBridge, [ @app.bridge.yandex_xmpp ]]
+
+    app.tracker.bridge_registry:
+        class: Krtv\Bundle\AppBundle\Bridge\Tracker\BridgeRegistry
+        calls:
+            - [addBridge, [ @app.bridge.pivotal     ]]
+
+    app.bridge.google:
+        class: Krtv\Bundle\AppBundle\Bridge\Provider\Google\Google
+        arguments:
+            - @app.debounce
+            - %provider.google.client_id%
+            - %provider.google.client_secret%
+        calls:
+            - [setLogger, [ @?logger ]]
+
+    app.bridge.dropbox:
+        class: Krtv\Bundle\AppBundle\Bridge\Provider\Dropbox\Dropbox
+        arguments:
+            - %provider.dropbox.client_id%
+        calls:
+            - [setLogger, [ @?logger ]]
+
+    app.bridge.yandex:
+        class: Krtv\Bundle\AppBundle\Bridge\Provider\Yandex\Yandex
+        arguments:
+            - @doctrine.orm.entity_manager
+        calls:
+            - [setLogger, [ @?logger ]]
+
+    app.bridge.yandex_xmpp:
+        class: Krtv\Bundle\AppBundle\Bridge\Provider\Yandex\YandexAsync
+        arguments:
+            - @doctrine.orm.entity_manager
+        calls:
+            - [setLogger, [ @?logger ]]
+
+    app.bridge.pivotal:
+        class: Krtv\Bundle\AppBundle\Bridge\Tracker\PivotalTracker\Pivotal
+
+    app.security.core.user.oauth_aware.user_provider:
+        class: Krtv\Bundle\AppBundle\Security\Core\User\UserProvider
+        arguments:
+            - @doctrine.orm.entity_manager
+

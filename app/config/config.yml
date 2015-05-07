@@ -1,0 +1,79 @@
+imports:
+    - { resource: parameters.yml }
+    - { resource: security.yml }
+    - { resource: services.yml }
+
+framework:
+    secret:          "%secret%"
+    router:
+        resource: "%kernel.root_dir%/config/routing.yml"
+        strict_requirements: ~
+    form:            ~
+    csrf_protection: ~
+    validation:      { enable_annotations: true }
+    templating:
+        engines: ['twig']
+    default_locale:  "%locale%"
+    trusted_hosts:   ~
+    trusted_proxies: ~
+    session:
+        handler_id:  ~
+    fragments:       ~
+    http_method_override: true
+
+twig:
+    debug:            "%kernel.debug%"
+    strict_variables: "%kernel.debug%"
+
+assetic:
+    debug:          "%kernel.debug%"
+    use_controller: false
+    bundles:        [ ]
+    filters:
+        cssrewrite: ~
+
+doctrine:
+    dbal:
+        driver:   "%database_driver%"
+        host:     "%database_host%"
+        port:     "%database_port%"
+        dbname:   "%database_name%"
+        user:     "%database_user%"
+        password: "%database_password%"
+        charset:  UTF8
+
+    orm:
+        auto_generate_proxy_classes: "%kernel.debug%"
+        auto_mapping: true
+        naming_strategy: doctrine.orm.naming_strategy.underscore
+
+swiftmailer:
+    transport: "%mailer_transport%"
+    host:      "%mailer_host%"
+    username:  "%mailer_user%"
+    password:  "%mailer_password%"
+    spool:     { type: memory }
+
+hwi_oauth:
+    firewall_name: default
+    resource_owners:
+        dropbox:
+            type:                dropbox
+            client_id:           %provider.dropbox.client_id%
+            client_secret:       %provider.dropbox.client_secret%
+
+        google:
+            type:                google
+            client_id:           %provider.google.client_id%
+            client_secret:       %provider.google.client_secret%
+            scope:               "https://www.googleapis.com/auth/drive https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile"
+            options:
+                access_type:     "offline"
+                approval_prompt: "force"
+                display:         "page"
+                login_hint:      "email address"
+
+        yandex:
+            type:                yandex
+            client_id:           %provider.yandex.client_id%
+            client_secret:       %provider.yandex.client_secret%
