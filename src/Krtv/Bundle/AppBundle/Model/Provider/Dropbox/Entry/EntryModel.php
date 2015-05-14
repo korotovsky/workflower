@@ -85,7 +85,7 @@ class EntryModel implements MatcherInterface, EntryModelInterface
      */
     public function match()
     {
-        if (preg_match('/\/([a-zA-Zа-яА-Я0-9\s-]+)_(\d{8,9})\//', $this->getPath(), $matches)) {
+        if (preg_match('/\/(.*)_(\d{8,9})\//', $this->getPath(), $matches)) {
             return $matches[2];
         }
 
