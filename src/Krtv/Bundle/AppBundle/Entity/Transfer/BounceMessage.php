@@ -51,7 +51,7 @@ class BounceMessage
      */
     public function __construct()
     {
-        $this->expireAt = new \DateTime('+1 minute');
+        $this->expireAt = new \DateTime('+1 minute 30 seconds');
     }
 
     /**
